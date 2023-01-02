@@ -1,59 +1,30 @@
-#include<iostream>
-#include<fstream>
-#include<stdlib.h>
-
+#include <fstream>
+#include <iostream>
 using namespace std;
 
-	class emp
-	{
-		char name[20];
-		int id;
-		float salary;
-		
-	   public:
-		void accept()
-		{
-			cin>>name>>id>>salary;
-		}
-	
-		void display()
-		{
-			cout<<"\n"<<name<<"\t"<<id<<"\t"<<salary;
-	
-		}
-	};
+int main() {
+  // Create an output file stream and open the file "output.txt" for writing
+  ofstream out("output.txt");
 
+  // Write some information to the file
+  out << "This is a line of text" << endl;
+  out << "This is another line of text" << endl;
 
-int main()
-{
-	emp e[3];
-	fstream f;
-	int i,n;
-	
-	f.open("D:\\myfile.txt");
-	
-	cout<<"\n how many records you want to insert: ";
-	cin>>n;
-	
-	cout<<"\n enter name,emp_id,salary: ";
-	
-	for(i=0;i<n;i++)
-	{
-		cout<<"\n enter information of employee "<<i+1<<" ";
-		e[i].accept();
-		f.write((char*) &e[i],sizeof(e[i]));
-	}
-	f.close();
-	
-	f.open("D:\\myfile.txt",ios::in);
-	
-	cout<<"\n employee information is as follows: ";
-	
-	for(i=0;i<n;i++)
-	{
-		f.read((char*) &e[i],sizeof(e[i]));
-		e[i].display();
-	}
-	f.close();
-	return 0;
+  // Close the output file stream
+  out.close();
+
+  // Create an input file stream and open the file "output.txt" for reading
+  ifstream in("output.txt");
+
+  // Read the information from the file and print it to the console
+  string line;
+  while (getline(in, line)) {
+    cout << line << endl;
+  }
+
+  // Close the input file stream
+  in.close();
+
+  return 0;
 }
+
