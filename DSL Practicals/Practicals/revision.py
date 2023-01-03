@@ -1,55 +1,77 @@
-def selection_sort(array, n):
-    for i in range(0, n-1):
-        for j in range(i+1, n):
-            if (array[i] > array[j]):
-                temp = array[i]
-                array[i] = array[j]
-                array[j] = temp
-    print("Sorted array using selection sort: ", array)
+def removeDuplicate(d):
+    lst = []
+    for i in d:
+        if i not in lst:
+            lst.append(i)
+    return lst
 
 
-def bubble_sort(array, n):
-    for j in range(n):
-        i = 0
-        while (i < n-1):
-            if (array[i] > array[i+1]):
-                array[i], array[i+1] = array[i+1], array[i]
-            i = i+1
-    print("Sort array using bubble sort: ", array)
+def intersection(lst1, lst2):  # common elements
+    lst3 = []
+    for val in lst1:
+        if val in lst2:
+            lst3.append(val)
+    return lst3
 
 
-def topFive(array):
-    print("Top Five: ", array[-5:])
+def union(lst1, lst2):
+    lst3 = lst1.copy()
+    for val in lst2:
+        lst3.append(val)
+    return lst3
 
 
-num = int(input("Enter number of students: "))
-percentage = []
-for i in range(num):
-    per = float(input("Enter percentage: "))
-    percentage.append(per)
+def difference(lst1, lst2):
+    lst3 = []
+    for val in lst1:
+        if val not in lst2:
+            lst3.append(val)
+    return lst3
 
-print("Percentage of students are(unsorted): ", percentage)
+
+def symm_diff(lst1, lst2):
+    D1 = difference(lst1, lst2)
+    D2 = difference(lst1, lst2)
+    lst3 = union(D1, D2)
+    return lst3
+
+# -----------------------------
+
+# List of students who play either cricket or badminton but not both
 
 
-while "no" not in input("Do you want to continue (yes/no) "):
-    print("\n \t \t *************** Menu ***************")
-    print("Enter 1 to sort Percentages using selection sort")
-    print("Enter 2 to sort Percentages using bubble sort")
-    print("Enter 3 to display top five scores")
-    print("Enter 4 to exit")
+def e_C_or_B_notBoth(lst1, lst2):
+    lst3 = symm_diff(lst1, lst2)
+    print("\nList of students who play either cricket or badminton but not both: ", lst3)
+    return len(lst3)
 
-    choice = int(input("Enter your choice: "))
+# Number of students who play neither cricket nor badminton
 
-    match choice:
-        case 1:
-            selection_sort(percentage, num)
-        case 2:
-            bubble_sort(percentage, num)
-        case 3:
-            topFive(percentage)
-        case 4:
-            print("\n Thanks for having me")
-            break
-        case default:
-            print("Wrong choice!!")
-            break
+
+def nCnB(lst1, lst2, lst3):
+    lst3 = difference(lst1, union(lst2, lst3))
+    print("\nNumber of students who play neither cricket nor badminton: ", lst3)
+    return len(lst3)
+
+# Number of students who play cricket and football but not badminton.
+
+
+def CFnB(lst1, lst2, lst3):
+    lst3 = difference(intersection(lst1, lst2), lst3)
+    print("\nNumber of students who play cricket and football but not badminton: ", lst3)
+    return len(lst3)
+
+# List of students who play both cricket and badminton
+
+
+def CB(lst1, lst2):
+    lst3 = intersection(lst1, lst2)
+    print(("\nList of students who play both cricket and badminton: ", lst3))
+    return len(lst3)
+
+
+lst1 = [4, 5, 6, 8]
+lst2 = [4, 5, 10, 11]
+print(intersection(lst1, lst2))
+print(union(lst1, lst2))
+print(difference(lst1, lst2))
